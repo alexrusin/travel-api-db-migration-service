@@ -3,26 +3,34 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable("users", {
+    await queryInterface.createTable("tours", {
       id: {
         type: Sequelize.UUID,
         primaryKey: true,
+      },
+      travel_id: {
+        type: Sequelize.UUID,
+        references: {
+          model: "travels",
+          key: "id",
+        },
+        onUpdate: "CASCADE",
+        onDelete: "CASCADE",
       },
       name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false,
-        unique: true,
+      starting_date: {
+        type: Sequelize.DATEONLY,
       },
-      email_verified_at: {
-        type: Sequelize.DATE,
+      ending_date: {
+        type: Sequelize.DATEONLY,
       },
-      password: {
-        type: Sequelize.STRING,
+      price: {
+        type: Sequelize.DECIMAL(10, 4),
         allowNull: false,
+        defaultValue: 0,
       },
       created_at: {
         type: Sequelize.DATE,
@@ -35,8 +43,9 @@ module.exports = {
         defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
       },
     });
+    await queryInterface.addIndex("tours", ["travel_id"]);
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable("users");
+    await queryInterface.dropTable("tours");
   },
 };

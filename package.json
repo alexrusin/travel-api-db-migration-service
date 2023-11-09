@@ -4,14 +4,18 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "migration:create": "npx sequelize-cli migration:create",
-    "migrate": "env-cmd npx sequelize-cli db:migrate",
-    "migrate:rollback": "env-cmd npx sequelize-cli db:migrate:undo"
+    "migration:create": "sequelize-cli migration:create",
+    "seeder:generate": "sequelize-cli seed:generate",
+    "seed": "env-cmd sequelize-cli db:seed:all",
+    "seed:undo": "env-cmd sequelize-cli db:seed:undo",
+    "migrate": "env-cmd sequelize-cli db:migrate",
+    "migrate:rollback": "env-cmd sequelize-cli db:migrate:undo"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@faker-js/faker": "^8.2.0",
     "eslint": "^8.46.0",
     "eslint-config-prettier": "^8.9.0",
     "prettier": "3.0.0"
